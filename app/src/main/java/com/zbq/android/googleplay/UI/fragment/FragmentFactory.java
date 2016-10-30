@@ -1,7 +1,5 @@
 package com.zbq.android.googleplay.UI.fragment;
 
-import android.app.Fragment;
-
 import java.util.HashMap;
 
 /**
@@ -28,7 +26,7 @@ public class FragmentFactory {
                     fragment = new SubjectFragment();
                     break;
                 case 4:
-                    fragment = new RecommentFragment();
+                    fragment = new RecommendFragment();
                     break;
                 case 5:
                     fragment = new CategoryFragment();
