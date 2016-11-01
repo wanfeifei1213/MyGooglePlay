@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public abstract class MyBaseAdapter<T> extends BaseAdapter {
     private ArrayList<T> data;
 
-    private static final int TYPE_NORMAL = 0;
-    private static final int TYPE_MORE = 1;
+    private static final int TYPE_NORMAL = 1;
+    private static final int TYPE_MORE = 0;
 
 
     public MyBaseAdapter(ArrayList<T> data) {
@@ -52,11 +52,11 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         if (position == getCount() - 1) {
             return TYPE_MORE;
         } else {
-            return getInnerType();
+            return getInnerType(position);
         }
     }
 
-    public int getInnerType() {
+    public int getInnerType(int position) {
         return TYPE_NORMAL;
     }
 
@@ -67,7 +67,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
             if (getItemViewType(position) == TYPE_MORE) {
                 holder = new MoreHolder(hasMore());
             } else {
-                holder = getHolder();
+                holder = getHolder(position);
             }
         } else {
             holder = (BaseHolder) convertView.getTag();
@@ -77,7 +77,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         } else {
 
             MoreHolder moreHolder = (MoreHolder) holder;
-            if (moreHolder.getData()==MoreHolder.STATE_MORE_MORE){
+            if (moreHolder.getData() == MoreHolder.STATE_MORE_MORE) {
                 loadMore(moreHolder);
             }
         }
@@ -88,7 +88,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         return true;
     }
 
-    public abstract BaseHolder getHolder();
+    public abstract BaseHolder getHolder(int position);
 
     private boolean isLoadMore = false;//标记是否正在加载更多
 
@@ -122,7 +122,8 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
             }.start();
         }
     }
-    public int getListSize(){
+
+    public int getListSize() {
         return data.size();
     }
 

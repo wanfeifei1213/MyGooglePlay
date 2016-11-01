@@ -1,10 +1,10 @@
 package com.zbq.android.googleplay.UI.fragment;
 
-import android.util.Log;
 import android.view.View;
 
 import com.zbq.android.googleplay.UI.adapter.MyBaseAdapter;
 import com.zbq.android.googleplay.UI.holder.BaseHolder;
+import com.zbq.android.googleplay.UI.holder.HomeHeaderHolder;
 import com.zbq.android.googleplay.UI.holder.HomeHolder;
 import com.zbq.android.googleplay.UI.view.LoadingPage;
 import com.zbq.android.googleplay.UI.view.MyListView;
@@ -20,20 +20,25 @@ import java.util.ArrayList;
 
 public class HomeFragment extends BaseFragment {
     private ArrayList<AppInfo> data;
+    private ArrayList<String> mPictureList;
 
     @Override
     public View onCreateSuccessView() {
         MyListView listView = new MyListView(UIUtils.getContext());
+        HomeHeaderHolder homeHeaderHolder = new HomeHeaderHolder();
+        listView.addHeaderView(homeHeaderHolder.getRootView());
+        if (mPictureList != null) {
+            homeHeaderHolder.setData(mPictureList);
+        }
         listView.setAdapter(new HomeAdapter(data));
         return listView;
     }
 
     @Override
     public LoadingPage.ResultState onLoad() {
-
         HomeProtocol homeProtocol = new HomeProtocol();
         data = homeProtocol.getData(0);
-        Log.d("onLoad", "onLoad: " + data);
+        mPictureList = homeProtocol.getPictureList();
         return check(data);
     }
 
@@ -45,7 +50,7 @@ public class HomeFragment extends BaseFragment {
         }
 
         @Override
-        public BaseHolder getHolder() {
+        public BaseHolder getHolder(int position) {
             return new HomeHolder();
         }
 

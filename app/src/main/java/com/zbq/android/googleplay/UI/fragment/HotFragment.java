@@ -32,11 +32,10 @@ public class HotFragment extends BaseFragment {
         FlowLayout flowLayout = new FlowLayout(UIUtils.getContext());
 
         int padding = UIUtils.dip2px(10);
-        int padding7 = UIUtils.dip2px(7);
 
         flowLayout.setPadding(padding, padding, padding, padding);
 
-        flowLayout.setHorizontalSpacing(UIUtils.dip2px(9));
+        flowLayout.setHorizontalSpacing(UIUtils.dip2px(8));
         flowLayout.setVerticalSpacing(UIUtils.dip2px(8));
 
         for (int i = 0; i < mData.size(); i++) {
@@ -44,8 +43,8 @@ public class HotFragment extends BaseFragment {
             final String keyword=mData.get(i);
             textView.setText(mData.get(i));
             textView.setTextColor(Color.WHITE);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            textView.setPadding(padding, padding7, padding, padding7);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+            textView.setPadding(padding, padding, padding, padding);
             textView.setGravity(Gravity.CENTER);
             Random random = new Random();
             int r = 30 + random.nextInt(200);
@@ -57,7 +56,7 @@ public class HotFragment extends BaseFragment {
 //            GradientDrawable bgPress=
 //                    DrawableUtils.getGradientDrawable(0xffcecece, UIUtils.dip2px(6));
 //            StateListDrawable selector = DrawableUtils.getSelector(bgNormal, bgPress);
-            StateListDrawable selector = DrawableUtils.getSelector(Color.rgb(r, g, b), color, UIUtils.dip2px(10));
+            StateListDrawable selector = DrawableUtils.getSelector(Color.rgb(r, g, b), color, UIUtils.dip2px(8));
             textView.setBackgroundDrawable(selector);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override

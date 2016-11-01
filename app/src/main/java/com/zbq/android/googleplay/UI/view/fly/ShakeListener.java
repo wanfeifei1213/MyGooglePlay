@@ -61,7 +61,7 @@ public class ShakeListener implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 
-		System.out.println("x:"+event.values[SensorManager.DATA_X]+"  y:"+event.values[SensorManager.DATA_Y] + "  z:"+event.values[SensorManager.DATA_Z]);
+//		System.out.println("x:"+event.values[SensorManager.DATA_X]+"  y:"+event.values[SensorManager.DATA_Y] + "  z:"+event.values[SensorManager.DATA_Z]);
 
 		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER) {
 			return;
