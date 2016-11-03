@@ -1,7 +1,10 @@
 package com.zbq.android.googleplay.UI.fragment;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 
+import com.zbq.android.googleplay.UI.activity.HomeDetailActivity;
 import com.zbq.android.googleplay.UI.adapter.MyBaseAdapter;
 import com.zbq.android.googleplay.UI.holder.BaseHolder;
 import com.zbq.android.googleplay.UI.holder.HomeHeaderHolder;
@@ -31,6 +34,18 @@ public class HomeFragment extends BaseFragment {
             homeHeaderHolder.setData(mPictureList);
         }
         listView.setAdapter(new HomeAdapter(data));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AppInfo appInfo = data.get(position - 1);
+                if (appInfo!=null){
+                    Intent intent = new Intent(UIUtils.getContext(), HomeDetailActivity.class);
+                    intent.putExtra("packageName",appInfo.packageName);
+                    startActivity(intent);
+                }
+
+            }
+        });
         return listView;
     }
 
