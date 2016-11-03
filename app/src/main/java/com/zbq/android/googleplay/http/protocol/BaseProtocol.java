@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.zbq.android.googleplay.http.HttpHelper;
 import com.zbq.android.googleplay.utils.IOUtils;
-import com.zbq.android.googleplay.utils.LogUtils;
 import com.zbq.android.googleplay.utils.StringUtils;
 import com.zbq.android.googleplay.utils.UIUtils;
 
@@ -24,8 +23,7 @@ public abstract class BaseProtocol<T> {
         String result = getCache(index);
         if (StringUtils.isEmpty(result)) {
             result = getDataFromServer(index);
-            LogUtils.d(result);
-            Log.d("result", "getData: "+result);
+
         }
         //解析数据
         if (!StringUtils.isEmpty(result)) {
@@ -43,7 +41,7 @@ public abstract class BaseProtocol<T> {
             if (!StringUtils.isEmpty(result)){//写缓存
                 setCache(index,result);
             }
-            LogUtils.d(result);
+            Log.d("getDataFromServer", "onLoad: "+result);
             return result;
         }
         return null;
