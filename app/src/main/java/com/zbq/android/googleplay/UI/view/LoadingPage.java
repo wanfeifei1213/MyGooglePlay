@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.zbq.android.googleplay.R;
+import com.zbq.android.googleplay.manager.ThreadManager;
 import com.zbq.android.googleplay.utils.UIUtils;
 
 /**
@@ -97,7 +98,22 @@ public abstract class LoadingPage extends FrameLayout {
     public void loadData() {
         if (myCurrentState != STATE_LOAD_LOADING) {
             myCurrentState = STATE_LOAD_LOADING;
-            new Thread() {
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    final ResultState resultState = onLoad();
+//                    UIUtils.runOnUIThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (resultState != null) {
+//                                myCurrentState = resultState.getState();
+//                                showRightPage();
+//                            }
+//                        }
+//                    });
+//                }
+//            }.start();
+            ThreadManager.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     final ResultState resultState = onLoad();
@@ -111,7 +127,7 @@ public abstract class LoadingPage extends FrameLayout {
                         }
                     });
                 }
-            }.start();
+            });
         }
     }
 

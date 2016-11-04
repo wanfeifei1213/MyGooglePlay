@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.zbq.android.googleplay.UI.holder.BaseHolder;
 import com.zbq.android.googleplay.UI.holder.MoreHolder;
+import com.zbq.android.googleplay.manager.ThreadManager;
 import com.zbq.android.googleplay.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -96,7 +97,31 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
     public void loadMore(final MoreHolder moreHolder) {
         if (!isLoadMore) {
             isLoadMore = true;
-            new Thread() {
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    final ArrayList<T> moreData = onLoadMore();
+//                    UIUtils.runOnUIThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (moreData != null) {
+//                                if (moreData.size() < 20) {
+//                                    moreHolder.setData(MoreHolder.STATE_MORE_NONE);
+//                                    Toast.makeText(UIUtils.getContext(), "没有更多数据了", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    moreHolder.setData(MoreHolder.STATE_MORE_MORE);
+//                                }
+//                                data.addAll(moreData);
+//                                MyBaseAdapter.this.notifyDataSetChanged();
+//                            } else {
+//                                moreHolder.setData(MoreHolder.STATE_MORE_ERROR);
+//                            }
+//                            isLoadMore = false;
+//                        }
+//                    });
+//                }
+//            }.start();
+            ThreadManager.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     final ArrayList<T> moreData = onLoadMore();
@@ -119,7 +144,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
                         }
                     });
                 }
-            }.start();
+            });
         }
     }
 
